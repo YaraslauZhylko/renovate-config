@@ -1,3 +1,51 @@
 {
-  "extends": ["config:base"]
+  "extends": [
+    "config:base",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":label(dependencies)",
+    ":prImmediately",
+    ":rebaseStalePrs",
+    ":automergeDisabled"
+  ],
+  "prConcurrentLimit": 1,
+  "packageRules": [
+    {
+      "description": "Enforce Docker image version granularity",
+      "matchDatasources": ["docker"],
+      "separateMultipleMajor": true,
+      "separateMajorMinor": true,
+      "separateMinorPatch": true
+    }
+  ],
+  "docker": {
+    "enabled": true,
+    "additionalBranchPrefix": "docker/",
+    "addLabels": ["docker"]
+  },
+  "github-actions": {
+    "enabled": true,
+    "additionalBranchPrefix": "github-actions/",
+    "addLabels": ["github-actions"]
+  },
+  "js": {
+    "enabled": true,
+    "additionalBranchPrefix": "js/",
+    "addLabels": ["javascript"]
+  },
+  "pre-commit": {
+    "enabled": true,
+    "additionalBranchPrefix": "pre-commit/",
+    "addLabels": ["pre-commit"],
+    "versioning": "loose"
+  },
+  "python": {
+    "enabled": true,
+    "additionalBranchPrefix": "python/",
+    "addLabels": ["python"],
+    "lockFileMaintenance": {
+      "enabled": true,
+      "extends": ["schedule:monthly"]
+    }
+  }
 }

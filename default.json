@@ -46,6 +46,13 @@
     "lockFileMaintenance": {
       "enabled": true,
       "extends": ["schedule:monthly"]
-    }
+    },
+    "packageRules": [
+      {
+        "description": "Group all types-* dependencies into one PR",
+        "matchPackagePrefixes": ["types-"],
+        "groupName": "types dependencies"
+      }
+    ]
   }
 }

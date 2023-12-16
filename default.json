@@ -1,9 +1,11 @@
 {
   "extends": [
-    "config:base",
+    "config:recommended",
     ":dependencyDashboard",
     ":semanticCommits",
+    ":renovatePrefix",
     ":label(dependencies)",
+    ":separateMultipleMajorReleases",
     ":prImmediately",
     ":rebaseStalePrs",
     ":automergeDisabled"
@@ -11,48 +13,57 @@
   "prConcurrentLimit": 3,
   "packageRules": [
     {
-      "description": "Enforce Docker image version granularity",
+      "description": "Docker: config",
+      "matchCategories": ["docker"],
+      "additionalBranchPrefix": "docker/",
+      "addLabels": ["docker"]
+    },
+    {
+      "description": "Docker: enforce image version granularity",
       "matchDatasources": ["docker"],
       "separateMultipleMajor": true,
       "separateMajorMinor": true,
       "separateMinorPatch": true
+    },
+    {
+      "description": "GitHub Actions: config",
+      "matchManagers": ["github-actions"],
+      "additionalBranchPrefix": "github-actions/",
+      "addLabels": ["github-actions"]
+    },
+    {
+      "description": "JavaScript: config",
+      "matchCategories": ["js"],
+      "additionalBranchPrefix": "js/",
+      "addLabels": ["javascript"]
+    },
+    {
+      "description": "Pre-commit: config",
+      "matchManagers": ["pre-commit"],
+      "additionalBranchPrefix": "pre-commit/",
+      "addLabels": ["pre-commit"],
+      "versioning": "loose"
+    },
+    {
+      "description": "Python: config",
+      "matchCategories": ["python"],
+      "additionalBranchPrefix": "python/",
+      "addLabels": ["python"]
+    },
+    {
+      "description": "Python: all types-* and *-stubs dependencies in one PR",
+      "matchCategories": ["python"],
+      "matchPackagePatterns": ["^types-", "-stubs$"],
+      "groupName": "types and stubs dependencies",
+      "groupSlug": "types-and-stubs",
+      "extends": ["schedule:weekly"]
     }
   ],
-  "docker": {
-    "enabled": true,
-    "additionalBranchPrefix": "docker/",
-    "addLabels": ["docker"]
-  },
-  "github-actions": {
-    "enabled": true,
-    "additionalBranchPrefix": "github-actions/",
-    "addLabels": ["github-actions"]
-  },
-  "js": {
-    "enabled": true,
-    "additionalBranchPrefix": "js/",
-    "addLabels": ["javascript"]
-  },
   "pre-commit": {
-    "enabled": true,
-    "additionalBranchPrefix": "pre-commit/",
-    "addLabels": ["pre-commit"],
-    "versioning": "loose"
+    "enabled": true
   },
-  "python": {
+  "lockFileMaintenance": {
     "enabled": true,
-    "additionalBranchPrefix": "python/",
-    "addLabels": ["python"],
-    "lockFileMaintenance": {
-      "enabled": true,
-      "extends": ["schedule:monthly"]
-    },
-    "packageRules": [
-      {
-        "description": "Group all types-* dependencies into one PR",
-        "matchPackagePrefixes": ["types-"],
-        "groupName": "types dependencies"
-      }
-    ]
+    "extends": ["schedule:monthly"]
   }
 }

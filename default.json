@@ -11,6 +11,18 @@
     ":automergeDisabled"
   ],
   "prConcurrentLimit": 3,
+  "customManagers": [
+    {
+      "description": "Docker images in Makefile",
+      "customType": "regex",
+      "fileMatch": ["^Makefile$"],
+      "matchStrings": [
+        ".*_DOCKER_IMAGE\\s*=\\s*(?<depName>.+):(?<currentValue>.+)\\s*"
+      ],
+      "datasourceTemplate": "docker",
+      "versioningTemplate": "docker"
+    }
+  ],
   "packageRules": [
     {
       "description": "Docker: config",
@@ -57,8 +69,43 @@
       "groupName": "types and stubs dependencies",
       "groupSlug": "types-and-stubs",
       "extends": ["schedule:weekly"]
+    },
+    {
+      "description": "Makefile: config",
+      "matchFileNames": ["Makefile"],
+      "additionalBranchPrefix": "makefile/",
+      "addLabels": ["makefile"]
+    },
+    {
+      "description": "Monorepo: ruff dependencies",
+      "matchSourceUrls": [
+        "https://github.com/astral-sh/ruff",
+        "https://github.com/astral-sh/ruff-pre-commit"
+      ],
+      "additionalBranchPrefix": "monorepo/",
+      "groupName": "dependency ruff",
+      "groupSlug": "ruff"
+    },
+    {
+      "description": "Monorepo: python Docker images",
+      "matchDatasources": ["docker"],
+      "matchDepNames": ["python"],
+      "additionalBranchPrefix": "monorepo/",
+      "groupName": "python docker tags",
+      "groupSlug": "python"
+    },
+    {
+      "description": "Monorepo: postgres Docker images",
+      "matchDatasources": ["docker"],
+      "matchDepNames": ["postgres"],
+      "additionalBranchPrefix": "monorepo/",
+      "groupName": "postgres docker tags",
+      "groupSlug": "postgres"
     }
   ],
+  "pep621": {
+    "enabled": false
+  },
   "pre-commit": {
     "enabled": true
   },

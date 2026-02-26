@@ -1,39 +1,47 @@
 # renovate-config
 
-[Shareable config](https://docs.renovatebot.com/config-presets/) for [Renovate](https://www.mend.io/renovate/).
+Shareable [Renovate](https://www.mend.io/renovate/) preset for Vandruj repositories.
 
-## Setup
+## Setup in target repositories
 
-[Enable Renovate in your repo](https://github.com/apps/renovate/) and just use `extends` in the `renovate.json` or `renovate.json5` file.
+Enable Renovate for the target repository and extend this preset in `renovate.json` / `renovate.json5`:
 
-```js
+```json
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["local>YaraslauZhylko/renovate-config"]
 }
 ```
 
-## Development
+## Local development
 
-Lint the files:
+Initialize local git hooks:
+
+```shell
+make init
+```
+
+Run formatting:
 
 ```shell
 make lint
 ```
 
-Validate the configs:
+Run checks without changing files:
 
 ```shell
-make validate-renovate
+make lint-check
 ```
 
+Validate Renovate + GitHub Actions config:
+
 ```shell
-make validate-github-actions
+make validate
 ```
 
 ## References
 
-- [Renovate Docs](https://docs.renovatebot.com)
-- [Configuration Options \| Renovate Docs](https://docs.renovatebot.com/configuration-options/)
-- [Default Presets \| Renovate Docs](https://docs.renovatebot.com/presets-default/)
-- [Shareable Config Presets \| Renovate Docs](https://docs.renovatebot.com/config-presets/)
+- [Renovate Docs](https://docs.renovatebot.com/)
+- [Configuration Options | Renovate Docs](https://docs.renovatebot.com/configuration-options/)
+- [Default Presets | Renovate Docs](https://docs.renovatebot.com/presets-default/)
+- [Shareable Config Presets | Renovate Docs](https://docs.renovatebot.com/config-presets/)

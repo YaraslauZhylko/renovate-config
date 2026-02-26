@@ -46,6 +46,12 @@
       "versioning": "loose"
     },
     {
+      "description": "Pre-commit: keep mirrors-prettier on stable major",
+      "matchManagers": ["pre-commit"],
+      "matchDepNames": ["pre-commit/mirrors-prettier"],
+      "allowedVersions": "<4.0.0"
+    },
+    {
       "description": "Python: config",
       "matchCategories": ["python"],
       "additionalBranchPrefix": "python/",

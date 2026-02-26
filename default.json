@@ -33,6 +33,12 @@
       "addLabels": ["github-actions"]
     },
     {
+      "description": "GitHub Actions: all actions in one PR",
+      "matchManagers": ["github-actions"],
+      "groupName": "github actions",
+      "groupSlug": "github-actions"
+    },
+    {
       "description": "Pre-commit: config",
       "matchManagers": ["pre-commit"],
       "additionalBranchPrefix": "pre-commit/",

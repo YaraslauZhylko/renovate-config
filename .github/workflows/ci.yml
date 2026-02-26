@@ -1,31 +1,41 @@
 ---
-name: ci
+name: CI
 
 on: # yamllint disable-line rule:truthy
+  pull_request:
   push:
     branches:
       - "**"
 
 jobs:
   lint:
+    name: Lint
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: latest
-      - name: Run the linter
-        run: npx --yes prettier --check .
+          node-version: lts/*
+
+      - name: Run linter
+        run: make lint-check
+
   validate:
+    name: Validate
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: latest
-      - name: Validate the configs
-        run: npx --yes --package=re2 --package=renovate -- renovate-config-validator default.json renovate.json
+          node-version: lts/*
+
+      - name: Validate configs
+        run: make validate

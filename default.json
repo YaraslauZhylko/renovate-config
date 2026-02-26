@@ -10,19 +10,8 @@
     ":rebaseStalePrs",
     ":automergeDisabled"
   ],
-  "prConcurrentLimit": 3,
-  "customManagers": [
-    {
-      "description": "Docker images in Makefile",
-      "customType": "regex",
-      "fileMatch": ["^Makefile$"],
-      "matchStrings": [
-        ".*_DOCKER_IMAGE\\s*=\\s*(?<depName>.+):(?<currentValue>.+)\\s*"
-      ],
-      "datasourceTemplate": "docker",
-      "versioningTemplate": "docker"
-    }
-  ],
+  "minimumReleaseAge": "7 days",
+  "prConcurrentLimit": 1,
   "packageRules": [
     {
       "description": "Docker: config",
@@ -44,12 +33,6 @@
       "addLabels": ["github-actions"]
     },
     {
-      "description": "JavaScript: config",
-      "matchCategories": ["js"],
-      "additionalBranchPrefix": "js/",
-      "addLabels": ["javascript"]
-    },
-    {
       "description": "Pre-commit: config",
       "matchManagers": ["pre-commit"],
       "additionalBranchPrefix": "pre-commit/",
@@ -65,7 +48,7 @@
     {
       "description": "Python: all types-* and *-stubs dependencies in one PR",
       "matchCategories": ["python"],
-      "matchPackagePatterns": ["^types-", "-stubs$"],
+      "matchPackageNames": ["types-*", "*-stubs"],
       "groupName": "types and stubs dependencies",
       "groupSlug": "types-and-stubs",
       "extends": ["schedule:weekly"]
@@ -87,6 +70,13 @@
       "groupSlug": "ruff"
     },
     {
+      "description": "Monorepo: yamllint dependencies",
+      "matchSourceUrls": ["https://github.com/adrienverge/yamllint"],
+      "additionalBranchPrefix": "monorepo/",
+      "groupName": "dependency yamllint",
+      "groupSlug": "yamllint"
+    },
+    {
       "description": "Monorepo: python Docker images",
       "matchDatasources": ["docker"],
       "matchDepNames": ["python"],
@@ -97,15 +87,20 @@
     {
       "description": "Monorepo: postgres Docker images",
       "matchDatasources": ["docker"],
-      "matchDepNames": ["postgres"],
+      "matchDepNames": ["postgres", "postgis/postgis"],
       "additionalBranchPrefix": "monorepo/",
       "groupName": "postgres docker tags",
       "groupSlug": "postgres"
+    },
+    {
+      "description": "Monorepo: redis Docker images",
+      "matchDatasources": ["docker"],
+      "matchDepNames": ["redis"],
+      "additionalBranchPrefix": "monorepo/",
+      "groupName": "redis docker tags",
+      "groupSlug": "redis"
     }
   ],
-  "pep621": {
-    "enabled": false
-  },
   "pre-commit": {
     "enabled": true
   },

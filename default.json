@@ -82,6 +82,16 @@
       "groupSlug": "ruff"
     },
     {
+      "description": "Monorepo: uv dependencies",
+      "matchSourceUrls": [
+        "https://github.com/astral-sh/uv",
+        "https://github.com/astral-sh/uv-pre-commit"
+      ],
+      "additionalBranchPrefix": "monorepo/",
+      "groupName": "dependency uv",
+      "groupSlug": "uv"
+    },
+    {
       "description": "Monorepo: yamllint dependencies",
       "matchSourceUrls": ["https://github.com/adrienverge/yamllint"],
       "additionalBranchPrefix": "monorepo/",

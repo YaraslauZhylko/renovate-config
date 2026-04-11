@@ -90,7 +90,9 @@
       ],
       "additionalBranchPrefix": "monorepo/",
       "groupName": "dependency uv",
-      "groupSlug": "uv"
+      "groupSlug": "uv",
+      "separateMajorMinor": false,
+      "separateMinorPatch": false
     },
     {
       "description": "Monorepo: yamllint dependencies",

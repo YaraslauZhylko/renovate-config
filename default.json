@@ -84,6 +84,7 @@
     {
       "description": "Monorepo: uv dependencies",
       "matchSourceUrls": [
+        "https://ghcr.io/astral-sh/uv",
         "https://github.com/astral-sh/uv",
         "https://github.com/astral-sh/uv-pre-commit"
       ],
